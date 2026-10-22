@@ -32,7 +32,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       >
-        <body className="min-h-full flex flex-col bg-zinc-950 text-zinc-50 font-sans">
+        <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
           <TRPCProvider>{children}</TRPCProvider>
         </body>
       </html>

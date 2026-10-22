@@ -78,7 +78,7 @@ export default async function WorkspaceLayout({
   });
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-zinc-950 text-zinc-50">
+    <div className="flex h-screen w-screen overflow-hidden bg-background text-foreground">
       <Sidebar
         currentWorkspace={{
           id: workspace.id,
@@ -87,8 +87,10 @@ export default async function WorkspaceLayout({
         }}
         workspaces={userWorkspaces}
       />
-      <main className="flex-1 flex flex-col h-full overflow-y-auto bg-zinc-950">
-        <div className="flex-1 p-8 max-w-7xl w-full mx-auto">{children}</div>
+      <main className="flex-1 flex flex-col h-full overflow-y-auto bg-background">
+        <div className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
+          {children}
+        </div>
       </main>
     </div>
   );

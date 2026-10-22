@@ -10,7 +10,7 @@ export default async function Home() {
 
   if (!clerkUserId) {
     return (
-      <main className="flex-1 flex items-center justify-center bg-zinc-950 text-zinc-50 font-sans">
+      <main className="flex-1 flex items-center justify-center bg-background text-foreground font-sans">
         <ConsoleClient isAuthenticated={false} userWorkspaces={[]} />
       </main>
     );
@@ -22,7 +22,7 @@ export default async function Home() {
   if (!user) {
     // If webhook hasn't written user record yet, treat as empty list
     return (
-      <main className="flex-1 flex items-center justify-center bg-zinc-950 text-zinc-50 font-sans">
+      <main className="flex-1 flex items-center justify-center bg-background text-foreground font-sans">
         <ConsoleClient isAuthenticated={true} userWorkspaces={[]} />
       </main>
     );
@@ -45,7 +45,7 @@ export default async function Home() {
   });
 
   return (
-    <main className="flex-1 flex items-center justify-center bg-zinc-950 text-zinc-50 font-sans">
+    <main className="flex-1 flex items-center justify-center bg-background text-foreground font-sans">
       <ConsoleClient isAuthenticated={true} userWorkspaces={userWorkspaces} />
     </main>
   );

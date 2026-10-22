@@ -97,11 +97,11 @@ export default async function WorkspaceMembersPage({
   return (
     <div className="space-y-8">
       {/* Header */}
-      <header className="border-b border-zinc-800 pb-5">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-100 font-sans">
+      <header className="border-b border-border pb-5">
+        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground font-sans">
           Team Members
         </h1>
-        <p className="text-zinc-400 mt-1">
+        <p className="text-xs md:text-sm text-muted-foreground mt-1">
           Manage team roles and invite users to access your tenant dashboard
           workspace.
         </p>

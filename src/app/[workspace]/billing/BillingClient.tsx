@@ -2,13 +2,7 @@
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  Check,
-  CreditCard,
-  ExternalLink,
-  Loader2,
-  Sparkles,
-} from "lucide-react";
+import { Check, CreditCard, ExternalLink, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc/client";
 import { PaymentForm } from "./PaymentForm";
@@ -81,32 +75,31 @@ export function BillingClient({ workspace }: BillingClientProps) {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Current plan status panel */}
-      <div className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="p-5 md:p-6 bg-card border border-border rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1">
-          <span className="text-xs text-zinc-500 font-semibold uppercase tracking-wider">
+          <span className="text-[11px] text-muted-foreground font-mono uppercase tracking-wider">
             Current Tier
           </span>
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-zinc-100 capitalize">
+            <span className="text-xl md:text-2xl font-semibold text-foreground capitalize">
               {workspace.plan} Plan
             </span>
             {workspace.plan === "pro" && (
-              <span className="bg-amber-500/10 text-amber-400 text-[10px] font-bold border border-amber-500/20 px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
-                <Sparkles className="w-2.5 h-2.5" />
+              <span className="bg-card-subtle text-foreground text-[11px] font-mono border border-border px-2 py-0.5 rounded uppercase tracking-wider">
                 Active
               </span>
             )}
           </div>
           {workspace.plan === "pro" && workspace.currentPeriodEnd && (
-            <p className="text-xs text-zinc-500 pt-1">
-              Your subscription renews/ends on:{" "}
-              <span className="text-zinc-400 font-medium">
+            <p className="text-xs text-muted-foreground pt-1">
+              Renewal date:{" "}
+              <span className="text-foreground font-mono">
                 {new Date(workspace.currentPeriodEnd).toLocaleDateString()}
               </span>{" "}
               (Status:{" "}
-              <span className="text-emerald-400 font-semibold capitalize">
+              <span className="text-foreground font-mono capitalize">
                 {workspace.subscriptionStatus}
               </span>
               )
@@ -120,27 +113,25 @@ export function BillingClient({ workspace }: BillingClientProps) {
               type="button"
               disabled={loading}
               onClick={handleManagePortal}
-              className="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-800/50 text-zinc-100 text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 focus:outline-none border border-zinc-750"
+              className="px-4 py-2 bg-secondary hover:bg-secondary-hover disabled:opacity-50 text-secondary-foreground text-xs font-medium rounded-md transition-colors flex items-center justify-center gap-2 focus:outline-none border border-border"
             >
               {loading ? (
-                <Loader2 className="w-4 h-4 animate-spin text-zinc-400" />
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-muted-foreground" />
               ) : (
-                <CreditCard className="w-4 h-4" />
+                <CreditCard className="w-3.5 h-3.5" />
               )}
               Manage Billing & Invoices
-              <ExternalLink className="w-3.5 h-3.5 text-zinc-500" />
+              <ExternalLink className="w-3 h-3 text-muted-foreground" />
             </button>
           ) : (
             <button
               type="button"
               disabled={loading}
               onClick={handleUpgrade}
-              className="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 disabled:bg-amber-500/50 text-zinc-950 text-sm font-bold rounded-lg transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-md"
+              className="px-5 py-2 bg-primary hover:bg-primary-hover disabled:opacity-50 text-primary-foreground text-xs font-medium rounded-md transition-colors flex items-center justify-center gap-2 focus:outline-none"
             >
-              {loading ? (
-                <Loader2 className="w-4 h-4 animate-spin text-zinc-950" />
-              ) : (
-                <Sparkles className="w-4 h-4" />
+              {loading && (
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-primary-foreground" />
               )}
               Upgrade Workspace to Pro
             </button>
@@ -149,22 +140,22 @@ export function BillingClient({ workspace }: BillingClientProps) {
       </div>
 
       {/* Plan comparisons table card */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Free Plan Card */}
-        <article className="p-6 bg-zinc-900/60 border border-zinc-800 rounded-xl flex flex-col justify-between h-96 relative">
+        <article className="p-6 bg-card border border-border rounded-lg flex flex-col justify-between">
           <div>
-            <span className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">
+            <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
               Free Plan
             </span>
             <div className="mt-3 flex items-baseline gap-1">
-              <span className="text-4xl font-extrabold text-zinc-100 tracking-tight">
+              <span className="text-3xl font-semibold text-foreground tracking-tight tabular-nums">
                 $0
               </span>
-              <span className="text-sm text-zinc-500">/ month</span>
+              <span className="text-xs text-muted-foreground">/ month</span>
             </div>
-            <p className="text-sm text-zinc-450 mt-4 leading-relaxed">
-              Standard shared computing resources, perfect for testing, early
-              proof of concepts, and startup portfolios.
+            <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
+              Standard shared computing resources for testing and development
+              environments.
             </p>
 
             <ul className="mt-6 space-y-2.5">
@@ -176,9 +167,9 @@ export function BillingClient({ workspace }: BillingClientProps) {
               ].map((feature) => (
                 <li
                   key={feature}
-                  className="flex items-start gap-2 text-sm text-zinc-400"
+                  className="flex items-start gap-2.5 text-xs text-muted-foreground"
                 >
-                  <Check className="w-4 h-4 text-zinc-600 shrink-0 mt-0.5" />
+                  <Check className="w-3.5 h-3.5 text-foreground shrink-0 mt-0.5" />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -187,7 +178,7 @@ export function BillingClient({ workspace }: BillingClientProps) {
           <button
             type="button"
             disabled
-            className="w-full mt-6 py-2.5 bg-zinc-800 text-zinc-500 text-sm font-semibold rounded-lg border border-zinc-800 cursor-not-allowed"
+            className="w-full mt-6 py-2 bg-card-subtle text-muted-foreground text-xs font-medium rounded-md border border-border cursor-not-allowed"
           >
             {workspace.plan === "free"
               ? "Currently Subscribed"
@@ -196,28 +187,25 @@ export function BillingClient({ workspace }: BillingClientProps) {
         </article>
 
         {/* Pro Plan Card */}
-        <article className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl flex flex-col justify-between h-96 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 bg-gradient-to-l from-amber-500/10 to-transparent w-full h-full pointer-events-none" />
-
+        <article className="p-6 bg-card border border-border rounded-lg flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
+              <span className="text-xs font-mono text-foreground uppercase tracking-wider">
                 Pro Plan
               </span>
-              <span className="text-[10px] font-bold text-zinc-950 bg-amber-500 px-2 py-0.5 rounded uppercase tracking-wider">
-                Popular
+              <span className="text-[10px] font-mono text-foreground border border-border bg-card-subtle px-2 py-0.5 rounded uppercase tracking-wider">
+                Enterprise
               </span>
             </div>
             <div className="mt-3 flex items-baseline gap-1">
-              <span className="text-4xl font-extrabold text-zinc-100 tracking-tight">
+              <span className="text-3xl font-semibold text-foreground tracking-tight tabular-nums">
                 $29
               </span>
-              <span className="text-sm text-zinc-500">/ month</span>
+              <span className="text-xs text-muted-foreground">/ month</span>
             </div>
-            <p className="text-sm text-zinc-450 mt-4 leading-relaxed">
-              For professional portfolios and production applications. Full
-              capabilities with priority Stripe subscription billing logs.
+            <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
+              For production workloads requiring scalable capacity and priority
+              database execution.
             </p>
 
             <ul className="mt-6 space-y-2.5">
@@ -230,9 +218,9 @@ export function BillingClient({ workspace }: BillingClientProps) {
               ].map((feature) => (
                 <li
                   key={feature}
-                  className="flex items-start gap-2 text-sm text-zinc-300"
+                  className="flex items-start gap-2.5 text-xs text-foreground"
                 >
-                  <Check className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                  <Check className="w-3.5 h-3.5 text-foreground shrink-0 mt-0.5" />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -244,19 +232,19 @@ export function BillingClient({ workspace }: BillingClientProps) {
               type="button"
               disabled={loading}
               onClick={handleManagePortal}
-              className="w-full mt-6 py-2.5 bg-zinc-800 hover:bg-zinc-700 transition-colors text-zinc-200 text-sm font-semibold rounded-lg border border-zinc-750 flex items-center justify-center gap-1.5 focus:outline-none"
+              className="w-full mt-6 py-2 bg-secondary hover:bg-secondary-hover transition-colors text-secondary-foreground text-xs font-medium rounded-md border border-border flex items-center justify-center gap-1.5 focus:outline-none"
             >
               Manage Subscription
-              <ExternalLink className="w-3.5 h-3.5 text-zinc-500" />
+              <ExternalLink className="w-3.5 h-3.5 text-muted-foreground" />
             </button>
           ) : (
             <button
               type="button"
               disabled={loading}
               onClick={handleUpgrade}
-              className="w-full mt-6 py-2.5 bg-amber-500 hover:bg-amber-600 transition-colors text-zinc-950 text-sm font-bold rounded-lg focus:outline-none shadow-lg flex items-center justify-center gap-1.5"
+              className="w-full mt-6 py-2 bg-primary hover:bg-primary-hover transition-colors text-primary-foreground text-xs font-medium rounded-md focus:outline-none flex items-center justify-center gap-1.5"
             >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+              {loading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
               Upgrade to Pro
             </button>
           )}
@@ -265,14 +253,14 @@ export function BillingClient({ workspace }: BillingClientProps) {
 
       {/* Embedded Elements Modal Overlay */}
       {clientSecret && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl w-full max-w-md shadow-2xl relative animate-in fade-in zoom-in duration-200 text-zinc-100 max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold text-zinc-100 font-sans mb-1">
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-card border border-border p-6 rounded-lg w-full max-w-md relative text-foreground max-h-[90vh] overflow-y-auto">
+            <h2 className="text-lg font-semibold text-foreground font-sans mb-1">
               Complete Upgrade
             </h2>
-            <p className="text-sm text-zinc-400 mb-6">
-              Enter your card details to upgrade{" "}
-              <strong>{workspace.name}</strong> to the Pro plan.
+            <p className="text-xs text-muted-foreground mb-6">
+              Enter payment details to upgrade <strong>{workspace.name}</strong>{" "}
+              to the Pro plan.
             </p>
             <Elements
               stripe={stripePromise}
@@ -281,11 +269,12 @@ export function BillingClient({ workspace }: BillingClientProps) {
                 appearance: {
                   theme: "night",
                   variables: {
-                    colorPrimary: "#f59e0b",
-                    colorBackground: "#09090b",
-                    colorText: "#f4f4f5",
-                    colorDanger: "#ef4444",
-                    fontFamily: "Inter, system-ui, sans-serif",
+                    colorPrimary: "#fafafa",
+                    colorBackground: "#121215",
+                    colorText: "#fafafa",
+                    colorDanger: "#fca5a5",
+                    fontFamily:
+                      "var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif",
                   },
                 },
               }}

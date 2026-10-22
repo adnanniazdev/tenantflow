@@ -73,23 +73,23 @@ export function Sidebar({ currentWorkspace, workspaces }: SidebarProps) {
   ];
 
   return (
-    <aside className="w-64 bg-zinc-900 border-r border-zinc-800 flex flex-col h-full text-zinc-300">
+    <aside className="w-64 bg-sidebar border-r border-sidebar-border flex flex-col h-full text-foreground">
       {/* Workspace Switcher */}
-      <div className="p-4 border-b border-zinc-800 relative">
+      <div className="p-4 border-b border-sidebar-border relative">
         <button
           type="button"
           onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="w-full flex items-center justify-between bg-zinc-950 px-3 py-2.5 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-all text-left focus:outline-none"
+          className="w-full flex items-center justify-between bg-card px-3 py-2 rounded-md border border-border hover:border-muted-foreground/30 transition-colors text-left focus:outline-none"
         >
-          <div className="flex flex-col truncate">
-            <span className="text-xs text-zinc-500 font-semibold uppercase tracking-wider">
+          <div className="flex flex-col min-w-0">
+            <span className="text-[11px] text-muted-foreground font-mono">
               Workspace
             </span>
-            <span className="text-sm text-zinc-100 font-medium truncate">
+            <span className="text-sm text-foreground font-medium truncate">
               {currentWorkspace.name}
             </span>
           </div>
-          <ChevronDown className="w-4 h-4 text-zinc-500 shrink-0 ml-2" />
+          <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0 ml-2" />
         </button>
 
         {dropdownOpen && (
@@ -100,8 +100,8 @@ export function Sidebar({ currentWorkspace, workspaces }: SidebarProps) {
               className="fixed inset-0 z-10 w-full h-full cursor-default bg-transparent"
               aria-label="Close workspace dropdown"
             />
-            <div className="absolute left-4 right-4 mt-2 bg-zinc-950 border border-zinc-850 rounded-lg shadow-xl py-1.5 z-20 max-h-60 overflow-y-auto">
-              <div className="px-3 py-1 text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+            <div className="absolute left-4 right-4 mt-2 bg-card border border-border rounded-md py-1.5 z-20 max-h-60 overflow-y-auto">
+              <div className="px-3 py-1 text-[11px] font-mono text-muted-foreground">
                 Switch Workspace
               </div>
               {workspaces.map((ws) => (
@@ -109,16 +109,16 @@ export function Sidebar({ currentWorkspace, workspaces }: SidebarProps) {
                   key={ws.id}
                   type="button"
                   onClick={() => handleWorkspaceChange(ws.slug)}
-                  className={`w-full text-left px-3 py-2 text-sm hover:bg-zinc-800/60 transition-colors flex items-center justify-between ${
+                  className={`w-full text-left px-3 py-2 text-sm transition-colors flex items-center justify-between ${
                     ws.slug === currentWorkspace.slug
-                      ? "text-zinc-100 font-medium bg-zinc-800/30"
-                      : "text-zinc-400"
+                      ? "text-foreground font-medium bg-muted"
+                      : "text-muted-foreground hover:text-foreground hover:bg-card-subtle"
                   }`}
                 >
                   <span className="truncate">{ws.name}</span>
                 </button>
               ))}
-              <div className="border-t border-zinc-900 my-1" />
+              <div className="border-t border-border-subtle my-1" />
               <button
                 type="button"
                 onClick={() => {
@@ -137,9 +137,9 @@ export function Sidebar({ currentWorkspace, workspaces }: SidebarProps) {
                   }
                   window.location.href = consoleUrl;
                 }}
-                className="w-full text-left px-3 py-2 text-xs font-medium text-emerald-400 hover:text-emerald-300 hover:bg-zinc-900 transition-colors flex items-center gap-1.5"
+                className="w-full text-left px-3 py-2 text-xs font-medium text-foreground hover:bg-muted transition-colors flex items-center gap-2"
               >
-                <Plus className="w-3.5 h-3.5" />
+                <Plus className="w-3.5 h-3.5 text-muted-foreground" />
                 Create New Workspace
               </button>
             </div>
@@ -148,7 +148,7 @@ export function Sidebar({ currentWorkspace, workspaces }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1.5">
+      <nav className="flex-1 px-3 py-4 space-y-1">
         {navItems.map((item) => {
           const hrefNormalized = item.href.replace(/\/$/, "");
           const pathnameNormalized = pathname.replace(/\/$/, "");
@@ -162,17 +162,17 @@ export function Sidebar({ currentWorkspace, workspaces }: SidebarProps) {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group ${
+              className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-zinc-800 text-zinc-100 font-semibold shadow-sm"
-                  : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40"
+                  ? "bg-card text-foreground border border-border"
+                  : "text-muted-foreground hover:text-foreground hover:bg-card-subtle border border-transparent"
               }`}
             >
               <item.icon
-                className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-105 ${
+                className={`w-4 h-4 shrink-0 transition-colors ${
                   isActive
-                    ? "text-zinc-100"
-                    : "text-zinc-500 group-hover:text-zinc-400"
+                    ? "text-foreground"
+                    : "text-muted-foreground group-hover:text-foreground"
                 }`}
               />
               {item.name}
@@ -182,21 +182,19 @@ export function Sidebar({ currentWorkspace, workspaces }: SidebarProps) {
       </nav>
 
       {/* User Section */}
-      <div className="p-4 border-t border-zinc-800 flex items-center justify-between gap-3 bg-zinc-950/40">
+      <div className="p-4 border-t border-sidebar-border flex items-center justify-between gap-3 bg-card-subtle">
         <div className="flex items-center gap-2.5 min-w-0">
           <UserButton
             appearance={{
               elements: {
                 userButtonAvatarBox:
-                  "w-8 h-8 rounded-full border border-zinc-800",
+                  "w-8 h-8 rounded-full border border-border",
               },
             }}
           />
           <div className="flex flex-col min-w-0">
-            <span className="text-xs text-zinc-500 font-medium">
-              Signed in as
-            </span>
-            <span className="text-sm font-semibold text-zinc-200 truncate leading-snug">
+            <span className="text-[11px] text-muted-foreground">Signed in</span>
+            <span className="text-xs font-medium text-foreground truncate leading-snug">
               {currentWorkspace.name} Member
             </span>
           </div>

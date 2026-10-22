@@ -1,22 +1,69 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Canvas & Base Surfaces */
+  --background: #09090b;
+  --foreground: #fafafa;
+
+  /* Surfaces & Containers */
+  --card: #121215;
+  --card-subtle: #18181b;
+  --muted: #1c1c20;
+  --muted-foreground: #a1a1aa;
+
+  /* Structural Dividers */
+  --border: #27272a;
+  --border-subtle: #1f1f23;
+
+  /* Primary Interactive / Action */
+  --primary: #f4f4f5;
+  --primary-foreground: #09090b;
+  --primary-hover: #e4e4e7;
+
+  /* Secondary Interactive */
+  --secondary: #18181b;
+  --secondary-foreground: #fafafa;
+  --secondary-hover: #27272a;
+
+  /* Subtle State / Indicator */
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+
+  /* Semantic Alert (Restrained, Monochromatic-aligned) */
+  --destructive: #450a0a;
+  --destructive-foreground: #fca5a5;
+  --destructive-border: #7f1d1d;
+
+  /* Navigation Sidebar */
+  --sidebar: #0b0b0e;
+  --sidebar-border: #1f1f23;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-subtle: var(--card-subtle);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-border: var(--destructive-border);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-border: var(--sidebar-border);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {

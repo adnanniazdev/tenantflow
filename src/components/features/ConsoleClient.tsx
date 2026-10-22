@@ -8,7 +8,6 @@ import {
   Plus,
   Rocket,
   ShieldAlert,
-  Sparkles,
 } from "lucide-react";
 import { useActionState, useState } from "react";
 import { createWorkspace } from "@/server/actions/workspace";
@@ -112,33 +111,36 @@ export function ConsoleClient({
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-6 max-w-5xl mx-auto w-full">
       {/* Hero Section */}
-      <section className="text-center space-y-4 py-8">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">
-          <Sparkles className="w-3.5 h-3.5" />
-          Next.js 15 & Neon Postgres RLS
-        </div>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-zinc-100 via-zinc-200 to-zinc-450 bg-clip-text text-transparent font-sans">
-          Multi-Tenant SaaS Starter
+      <section className="text-center space-y-3 py-10 max-w-2xl mx-auto">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-mono text-muted-foreground border border-border bg-card">
+          Next.js 15 · Neon Postgres RLS
+        </span>
+        <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground font-sans">
+          Multi-Tenant Workspace Console
         </h1>
-        <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-          A portfolio-grade boilerplate featuring true row-level security (RLS)
-          data isolation, subdomain rewriting, Clerk authentication, tRPC v11
-          APIs, and Stripe billing.
+        <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+          Production multi-tenant architecture with PostgreSQL Row-Level
+          Security, subdomain tenancy routing, Clerk authentication, and Stripe
+          billing.
         </p>
       </section>
 
       {/* Main console content */}
       {!isAuthenticated ? (
-        <div className="w-full max-w-md p-6 bg-zinc-900 border border-zinc-800 rounded-xl text-center space-y-6 mt-6">
-          <h2 className="text-lg font-semibold text-zinc-200">Get Started</h2>
-          <p className="text-sm text-zinc-500 leading-relaxed">
-            Sign in to create a workspace and experience isolated tenant
-            environments.
-          </p>
+        <div className="w-full max-w-md p-6 md:p-8 bg-card border border-border rounded-lg text-center space-y-6 mt-4">
+          <div className="space-y-1">
+            <h2 className="text-base font-medium text-foreground">
+              Sign In to Continue
+            </h2>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Authenticate to manage workspaces and access isolated tenant
+              environments.
+            </p>
+          </div>
           <SignInButton>
             <button
               type="button"
-              className="w-full py-2.5 bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 focus:outline-none"
+              className="w-full py-2.5 bg-primary hover:bg-primary-hover text-primary-foreground font-medium text-sm rounded-md transition-colors flex items-center justify-center gap-2 focus:outline-none"
             >
               Sign In to Dashboard
               <ArrowRight className="w-4 h-4" />
@@ -146,43 +148,43 @@ export function ConsoleClient({
           </SignInButton>
         </div>
       ) : (
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           {/* Workspaces List */}
-          <section className="space-y-4">
-            <h2 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
-              <FolderKanban className="w-4 h-4 text-emerald-400" />
-              Your Workspaces ({userWorkspaces.length})
+          <section className="space-y-3">
+            <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+              <FolderKanban className="w-4 h-4 text-muted-foreground" />
+              Workspaces ({userWorkspaces.length})
             </h2>
 
             {userWorkspaces.length === 0 ? (
-              <div className="p-8 border border-dashed border-zinc-800 rounded-xl text-center">
-                <LayoutGrid className="w-8 h-8 text-zinc-650 mx-auto mb-3" />
-                <h3 className="text-sm font-semibold text-zinc-300">
+              <div className="p-8 border border-dashed border-border rounded-lg text-center bg-card">
+                <LayoutGrid className="w-8 h-8 text-muted-foreground/60 mx-auto mb-3" />
+                <h3 className="text-sm font-medium text-foreground">
                   No workspaces found
                 </h3>
-                <p className="text-xs text-zinc-550 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   Create your first workspace context using the form.
                 </p>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {userWorkspaces.map((ws) => (
                   <a
                     key={ws.id}
                     href={getWorkspaceUrl(ws.slug)}
-                    className="flex items-center justify-between p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700 hover:bg-zinc-850/30 transition-all group"
+                    className="flex items-center justify-between p-4 bg-card border border-border rounded-lg hover:border-muted-foreground/30 hover:bg-card-subtle transition-colors group"
                   >
                     <div className="min-w-0">
-                      <h3 className="text-sm font-semibold text-zinc-200 truncate">
+                      <h3 className="text-sm font-medium text-foreground truncate">
                         {ws.name}
                       </h3>
-                      <p className="text-xs text-zinc-500 truncate mt-0.5">
+                      <p className="text-xs text-muted-foreground font-mono truncate mt-0.5">
                         {ws.slug}.lvh.me
                       </p>
                     </div>
-                    <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-xs text-foreground font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       Enter
-                      <ArrowRight className="w-3 h-3" />
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </a>
                 ))}
@@ -191,9 +193,9 @@ export function ConsoleClient({
           </section>
 
           {/* Create Workspace Form */}
-          <section className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl space-y-5 h-fit">
-            <h2 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
-              <Plus className="w-4 h-4 text-emerald-400" />
+          <section className="p-6 bg-card border border-border rounded-lg space-y-5 h-fit">
+            <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+              <Plus className="w-4 h-4 text-muted-foreground" />
               Create New Workspace
             </h2>
 
@@ -201,7 +203,7 @@ export function ConsoleClient({
               <div className="space-y-1.5">
                 <label
                   htmlFor="name"
-                  className="text-xs text-zinc-400 font-medium"
+                  className="text-xs text-muted-foreground font-medium"
                 >
                   Workspace Name
                 </label>
@@ -212,18 +214,18 @@ export function ConsoleClient({
                   required
                   placeholder="Acme Corp"
                   onChange={handleNameChange}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-650 focus:outline-none focus:border-zinc-700 transition-colors"
+                  className="w-full bg-background border border-border rounded-md px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-muted-foreground/50 transition-colors"
                 />
               </div>
 
               <div className="space-y-1.5">
                 <label
                   htmlFor="slug"
-                  className="text-xs text-zinc-400 font-medium"
+                  className="text-xs text-muted-foreground font-medium"
                 >
                   Subdomain Slug
                 </label>
-                <div className="flex rounded-lg bg-zinc-950 border border-zinc-800 focus-within:border-zinc-700 overflow-hidden transition-colors">
+                <div className="flex rounded-md bg-background border border-border focus-within:border-muted-foreground/50 overflow-hidden transition-colors">
                   <input
                     type="text"
                     name="slug"
@@ -236,9 +238,9 @@ export function ConsoleClient({
                         e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""),
                       )
                     }
-                    className="flex-1 bg-transparent px-3 py-2 text-sm text-zinc-100 focus:outline-none"
+                    className="flex-1 bg-transparent px-3 py-2 text-sm text-foreground focus:outline-none"
                   />
-                  <span className="bg-zinc-900/60 border-l border-zinc-800 text-xs text-zinc-500 font-semibold px-3 flex items-center select-none font-mono">
+                  <span className="bg-card-subtle border-l border-border text-xs text-muted-foreground font-mono px-3 flex items-center select-none">
                     .lvh.me
                   </span>
                 </div>
@@ -247,20 +249,20 @@ export function ConsoleClient({
               <button
                 type="submit"
                 disabled={createPending}
-                className="w-full py-2.5 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-500/50 text-zinc-950 font-bold text-sm rounded-lg transition-colors flex items-center justify-center gap-1.5 focus:outline-none"
+                className="w-full py-2.5 bg-primary hover:bg-primary-hover disabled:opacity-50 text-primary-foreground font-medium text-sm rounded-md transition-colors flex items-center justify-center gap-2 focus:outline-none"
               >
                 <Rocket className="w-4 h-4 shrink-0" />
-                {createPending ? "Creating Workspace..." : "Create and Launch"}
+                {createPending ? "Creating Workspace..." : "Create Workspace"}
               </button>
 
               {createState.error && (
-                <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-xs text-rose-400 font-medium flex items-center gap-1.5">
+                <div className="p-3 rounded-md bg-destructive/20 border border-destructive-border text-xs text-destructive-foreground font-medium flex items-center gap-2">
                   <ShieldAlert className="w-4 h-4 shrink-0" />
                   {createState.error}
                 </div>
               )}
               {createState.success && (
-                <p className="text-xs text-emerald-400 font-medium">
+                <p className="text-xs text-foreground font-medium">
                   {createState.success}
                 </p>
               )}
@@ -271,11 +273,11 @@ export function ConsoleClient({
 
       {/* Sign Out Trigger when authenticated */}
       {isAuthenticated && (
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center">
           <SignOutButton>
             <button
               type="button"
-              className="text-xs text-zinc-500 hover:text-zinc-400 underline transition-colors"
+              className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
             >
               Sign out of account
             </button>
